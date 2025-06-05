@@ -1,9 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.endpoints import companies, jobs
+from api.endpoints import companies, jobs
+# from db.session import engine, Base  # Removed since not needed
+# from models import models  # Removed since not used directly
+# Base.metadata.create_all(bind=engine)  # Removed
 
-app = FastAPI(title="Job Board API")
+app = FastAPI(title="Job Board API", description="A modern job board API with AI-powered job descriptions")
 
 # Configure CORS
 app.add_middleware(
@@ -18,6 +21,4 @@ app.add_middleware(
 app.include_router(companies.router, prefix="/companies", tags=["companies"])
 app.include_router(jobs.router, prefix="/jobs", tags=["jobs"])
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the Job Board API"} 
+
